@@ -5,6 +5,7 @@ const cors = require('cors');
 const { GridFSBucket } = require('mongodb');
 const fs = require('fs');
 const connectDB = require('./config/db.js')
+require("dotenv").config();
 
 const app = express();
 app.use(express.json());
@@ -226,5 +227,5 @@ app.delete('/delete/:roomCode', async(req,res)=>{
 
 
 // Start the server
-const port = 5000;
+const port = process.env.PORT;
 app.listen(port, () => console.log(`Server started on port ${port}`));
