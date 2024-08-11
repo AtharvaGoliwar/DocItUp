@@ -164,6 +164,7 @@ const App = () => {
         setRoomCode(0);
         setFile(null);
         setSelectedDownload("");
+        window.location.reload();
       } catch (err) {
         console.log(err);
       }
