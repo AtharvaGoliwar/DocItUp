@@ -173,6 +173,7 @@ const App = () => {
 
   return (
     <div className="container">
+      <h1>DocItUp</h1>
       <h2>File Upload and Download</h2>
       {/* <div className="upload-section">
         <input type="file" onChange={onFileChange} />
