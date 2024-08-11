@@ -20,6 +20,7 @@ const App = () => {
         await axios.post(`${URL}/remove-room-code`, {
           roomCode,
         });
+        setFileDets([]);
         try {
           const response = await axios.delete(`${URL}/delete/${roomCode}`);
           console.log(response.data.message);
