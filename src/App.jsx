@@ -152,6 +152,7 @@ const App = () => {
 
   const handleDisconnect = async () => {
     if (roomCode) {
+      console.log(roomCode);
       await axios.post(`${URL}/remove-room-code`, {
         roomCode,
       });
@@ -161,6 +162,7 @@ const App = () => {
         const response = await axios.delete(`${URL}/delete/${roomCode}`);
         console.log(response.data.message);
         setRoomCode(0);
+        setFile(null);
         setSelectedDownload("");
       } catch (err) {
         console.log(err);
