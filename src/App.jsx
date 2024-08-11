@@ -9,19 +9,18 @@ const App = () => {
   const [roomCode, setRoomCode] = useState(0);
   const [joinCode, setJoinCode] = useState("");
   const [isSelected, setIsSelected] = useState(false);
+  const url = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     // Cleanup on window close or refresh
     const handleWindowClose = async () => {
       console.log(roomCode);
       if (roomCode) {
-        await axios.post("http://localhost:5000/remove-room-code", {
+        await axios.post(`${url}/remove-room-code`, {
           roomCode,
         });
         try {
-          const response = await axios.delete(
-            `http://localhost:5000/delete/${roomCode}`
-          );
+          const response = await axios.delete(`${url}/delete/${roomCode}`);
           console.log(response.data.message);
         } catch (err) {
           console.log(err);
@@ -46,7 +45,7 @@ const App = () => {
   // useEffect(() => {
   //   const getFileDets = async () => {
   //     try {
-  //       let res = await axios.get("http://localhost:5000/files");
+  //       let res = await axios.get("url/files");
   //       console.log(res.data.message);
   //       setFileDets(res.data.message);
   //     } catch (err) {
@@ -67,15 +66,11 @@ const App = () => {
     formData.append("file", file);
     if (roomCode !== 0) {
       try {
-        const res = await axios.post(
-          `http://localhost:5000/upload/${roomCode}`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        const res = await axios.post(`${url}/upload/${roomCode}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
         setFilename(res.data.filename);
         alert("File uploaded successfully");
@@ -93,9 +88,7 @@ const App = () => {
   const handleDownload = async () => {
     try {
       // Fetch file data from the backend
-      const response = await axios.get(
-        `http://localhost:5000/files/${selectedDownload}`
-      );
+      const response = await axios.get(`${url}/files/${selectedDownload}`);
 
       const { contentType, data: base64Data, fileName } = response.data;
 
@@ -130,7 +123,7 @@ const App = () => {
 
   const handleCreateRoom = async () => {
     try {
-      let result = await axios.get("http://localhost:5000/generateroomcode");
+      let result = await axios.get(`${url}/generateroomcode`);
       let code = result.data.roomCode;
       console.log(code);
       if (code) {
@@ -143,7 +136,7 @@ const App = () => {
   const handleJoinRoom = async () => {
     setSelectedDownload("");
     try {
-      let res = await axios.get(`http://localhost:5000/getFiles/${joinCode}`);
+      let res = await axios.get(`${url}/getFiles/${joinCode}`);
       console.log(res.data.message);
       setFileDets(res.data.message);
     } catch (err) {}
