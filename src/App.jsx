@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./App.css";
 
 const App = () => {
   const [file, setFile] = useState(null);
@@ -168,11 +169,25 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>File Upload and Download</h2>
-      <input type="file" onChange={onFileChange} />
-      <button onClick={onFileUpload}>Upload</button>
-
+      {/* <div className="upload-section">
+        <input type="file" onChange={onFileChange} />
+        <button onClick={onFileUpload}>Upload</button>
+      </div> */}
+      <div
+        className="upload-section"
+        onClick={() => document.getElementById("fileInput").click()}
+      >
+        {/* <p>Click to select a file</p> */}
+        <p>{file ? `Selected File: ${file.name}` : "Click to select a file"}</p>
+        <input type="file" id="fileInput" onChange={onFileChange} />
+        <br />
+      </div>
+      <br />
+      <button onClick={onFileUpload} style={{ margin: "auto" }}>
+        Upload
+      </button>
       {/* {filename && (
         <>
           <p>Uploaded file: {filename}</p>
@@ -182,18 +197,20 @@ const App = () => {
       )} */}
       <br />
       <br />
-      {fileDets.map((item) => (
-        <div>
-          <input
-            type="radio"
-            value={item}
-            checked={selectedDownload === item}
-            onChange={() => handleRadioChange(item)}
-          />
-          {item}
-          <br />
-        </div>
-      ))}
+      <div className="file-list">
+        {fileDets.map((item) => (
+          <div>
+            <input
+              type="radio"
+              value={item}
+              checked={selectedDownload === item}
+              onChange={() => handleRadioChange(item)}
+            />
+            {item}
+            <br />
+          </div>
+        ))}
+      </div>
       <button onClick={handleDownload}>Download</button>
       <br />
       <br />
@@ -206,7 +223,13 @@ const App = () => {
       <div>{roomCode !== 0 ? roomCode : ""}</div>
       <br />
       <br />
-      <input type="text" onChange={(e) => setJoinCode(e.target.value)} />
+      <input
+        type="text"
+        className="room-code-input"
+        onChange={(e) => setJoinCode(e.target.value)}
+      />{" "}
+      <br />
+      <br />
       <button onClick={handleJoinRoom}>Join Room</button>
       {roomCode !== 0 ? (
         <button onClick={handleDisconnect}>Disconnect</button>
