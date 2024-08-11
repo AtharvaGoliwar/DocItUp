@@ -26,7 +26,7 @@ connectDB();
 // }
 
 app.use(cors({
-    origin: 'https://doc-it-up.vercel.app/', // replace with your React app's URL
+    origin: 'https://doc-it-up.vercel.app', // replace with your React app's URL
 }));
 
 const conn = mongoose.connection;
