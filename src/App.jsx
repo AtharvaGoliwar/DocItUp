@@ -150,16 +150,16 @@ const App = () => {
   };
 
   const handleDisconnect = async () => {
-    if (joinCode) {
+    if (roomCode) {
       await axios.post(`${URL}/remove-room-code`, {
         roomCode,
       });
       setFileDets([]);
       setJoinCode("");
       try {
-        const response = await axios.delete(`${URL}/delete/${joinCode}`);
+        const response = await axios.delete(`${URL}/delete/${roomCode}`);
         console.log(response.data.message);
-        setRoomCode("");
+        setRoomCode(0);
         setSelectedDownload("");
       } catch (err) {
         console.log(err);
@@ -208,7 +208,7 @@ const App = () => {
       <br />
       <input type="text" onChange={(e) => setJoinCode(e.target.value)} />
       <button onClick={handleJoinRoom}>Join Room</button>
-      {joinCode !== "" ? (
+      {roomCode !== 0 ? (
         <button onClick={handleDisconnect}>Disconnect</button>
       ) : (
         ""
