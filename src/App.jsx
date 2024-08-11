@@ -21,6 +21,7 @@ const App = () => {
           roomCode,
         });
         setFileDets([]);
+        setJoinCode("");
         try {
           const response = await axios.delete(`${URL}/delete/${roomCode}`);
           console.log(response.data.message);
@@ -148,6 +149,24 @@ const App = () => {
     setSelectedDownload(value);
   };
 
+  const handleDisconnect = async () => {
+    if (roomCode) {
+      await axios.post(`${URL}/remove-room-code`, {
+        roomCode,
+      });
+      setFileDets([]);
+      setJoinCode("");
+      try {
+        const response = await axios.delete(`${URL}/delete/${roomCode}`);
+        console.log(response.data.message);
+        setRoomCode("");
+        setSelectedDownload("");
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   return (
     <div>
       <h2>File Upload and Download</h2>
@@ -189,6 +208,11 @@ const App = () => {
       <br />
       <input type="text" onChange={(e) => setJoinCode(e.target.value)} />
       <button onClick={handleJoinRoom}>Join Room</button>
+      {joinCode !== "" ? (
+        <button onClick={handleDisconnect}>Disconnect</button>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
