@@ -150,14 +150,14 @@ const App = () => {
   };
 
   const handleDisconnect = async () => {
-    if (roomCode) {
+    if (joinCode) {
       await axios.post(`${URL}/remove-room-code`, {
         roomCode,
       });
       setFileDets([]);
       setJoinCode("");
       try {
-        const response = await axios.delete(`${URL}/delete/${roomCode}`);
+        const response = await axios.delete(`${URL}/delete/${joinCode}`);
         console.log(response.data.message);
         setRoomCode("");
         setSelectedDownload("");
