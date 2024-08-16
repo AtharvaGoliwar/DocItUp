@@ -108,8 +108,6 @@ app.post('/upload/:roomCode', upload.single('file'), async (req, res) => {
             });
             res.json({ fileId: result.insertedId, filename: file.originalname });
         } else {
-            // Store in GridFS
-            console.log("check");
             const uploadStream = gfs.openUploadStream(file.originalname, {
                 contentType: file.mimetype,
                 metadata: { roomCode: code },
@@ -121,10 +119,10 @@ app.post('/upload/:roomCode', upload.single('file'), async (req, res) => {
                 res.json({ fileId: uploadStream.id, filename: file.originalname });
             });
 
-            uploadStream.on('error', (err) => {
-                console.error('Error uploading to GridFS', err);
-                res.status(500).send('An error occurred while uploading the file to GridFS.');
-            });
+            // uploadStream.on('error', (err) => {
+            //     console.error('Error uploading to GridFS', err);
+            //     res.status(500).send('An error occurred while uploading the file to GridFS.');
+            // });
         }
     } catch (err) {
         console.error(err);
