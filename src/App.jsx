@@ -215,7 +215,13 @@ const App = () => {
           </div>
         ))}
       </div>
-      <button onClick={handleDownload}>Download</button>
+      <div
+        style={
+          fileDets.length === 0 ? { display: "none" } : { display: "block" }
+        }
+      >
+        <button onClick={handleDownload}>Download</button>
+      </div>
       <br />
       <br />
       <button
