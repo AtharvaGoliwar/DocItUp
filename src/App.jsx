@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./App.css";
+import "./App1.css";
+// import { Img } from "./assets/docitup-high-resolution-logo.png";
 
 const App = () => {
   const [file, setFile] = useState(null);
@@ -173,7 +174,26 @@ const App = () => {
 
   return (
     <div className="container">
-      <h1>DocItUp</h1>
+      <div
+        style={{
+          // display: "flex",
+          // justifyContent: "center",
+          margin: "auto",
+          // width: "100px",
+          // height: "100px",
+        }}
+      >
+        <div>
+          <img
+            src="src\assets\docitup-high-resolution-logo-transparent.png"
+            alt="logo"
+            style={{ objectFit: "cover", maxWidth: "150px", height: "auto" }}
+          />
+        </div>
+        {/* <div>
+          <h1>DocItUp</h1>
+        </div> */}
+      </div>
       <h2>File Upload and Download</h2>
       {/* <div className="upload-section">
         <input type="file" onChange={onFileChange} />
